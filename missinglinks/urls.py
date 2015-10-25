@@ -8,9 +8,9 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 
 urlpatterns = [
-    url(r'^django-admin/', include(admin.site.urls)),
+    url(r'^djadmin/', include(admin.site.urls)),
 
-    url(r'^admin/', include(wagtailadmin_urls)),
+    url(r'^wagadmin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', 'search.views.search', name='search'),
