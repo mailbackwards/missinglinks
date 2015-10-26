@@ -2,7 +2,8 @@
 Django settings for missinglinks project.
 """
 import environ
-root = environ.Path(__file__) - 1
+root = environ.Path(__file__) - 2
+core_root = environ.Path(__file__) - 1
 env = environ.Env()
 
 DEBUG = env('DEBUG', cast=bool, default=False)
@@ -57,13 +58,13 @@ MIDDLEWARE_CLASSES = (
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            root('templates')
+            core_root('templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -78,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
@@ -107,9 +108,9 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = (
-    root('static'),
+    core_root('static'),
 )
-STATIC_ROOT = root('static_root')
+STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = root('media')
