@@ -2,14 +2,10 @@
 Django settings for missinglinks project.
 """
 import environ
-
 root = environ.Path(__file__) - 1
-env = environ.Env(
-    DEBUG=(bool, False),
-)
-environ.Env.read_env()
+env = environ.Env()
 
-DEBUG = env('DEBUG')
+DEBUG = env('DEBUG', cast=bool, default=False)
 SECRET_KEY = env('SECRET_KEY')
 
 
