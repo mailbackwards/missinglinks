@@ -66,9 +66,14 @@ TEMPLATES = [
         'DIRS': [
             core_root('templates')
         ],
-        'APP_DIRS': True,
         'OPTIONS': {
             'debug': DEBUG,
+            'loaders': [(
+                'django.template.loaders.cached.Loader', [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                ]),
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -87,6 +92,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': env.db()
 }
+CONN_MAX_AGE = 60
 
 
 # Internationalization
@@ -120,6 +126,8 @@ ALLOWED_HOSTS = ['*']
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Wagtail settings
 
