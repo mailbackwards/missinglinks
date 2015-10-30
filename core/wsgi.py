@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 import environ
 path = environ.Path(__file__) - 2
-environ.Env().read_env(path('.env'))
+environ.Env.read_env(path('.env'))
 
 from django.core.wsgi import get_wsgi_application
 from dj_static import Cling, MediaCling
