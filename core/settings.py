@@ -179,8 +179,8 @@ ALLOWED_HOSTS = ['*']
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = not env('DEBUG')
+SESSION_COOKIE_SECURE = not env('DEBUG')
 
 # Wagtail settings
 
