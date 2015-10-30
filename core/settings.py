@@ -159,6 +159,22 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = root('media')
 MEDIA_URL = '/media/'
 
+# django-storages-redux settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'media.missinglinks.com'
+AWS_HEADERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=%s' % 63072000  # two years
+}
+from boto.s3.connection import ProtocolIndependentOrdinaryCallingFormat
+AWS_S3_CALLING_FORMAT = ProtocolIndependentOrdinaryCallingFormat()
+AWS_S3_URL_PROTOCOL = ''
+AWS_S3_SECURE_URLS = False
+AWS_QUERYSTRING_AUTH = False
+AWS_IS_GZIPPED = True
+
 ALLOWED_HOSTS = ['*']
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
