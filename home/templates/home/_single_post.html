@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-md-12 blog-main">
+        <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
+        <p>{{ post.date }}</p>
+        <img src="{{ post.image.file.url }}" alt="{{ post.image.title }}" class="post-image">
+        <p>{{ post.body|safe }}</p>
+    </div>
+</div>

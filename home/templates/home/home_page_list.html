@@ -5,26 +5,7 @@
 {% block content %}
     <div class="col-md-8 blog-main">
         {% for post in post_list %}
-        {% if forloop.counter|divisibleby:2 or forloop.last %}
-        <div class="row">
-        {% endif %}
-            <div class="col-md-6 col-sm-6">
-                <article class="blog-teaser">
-                    <header>
-                        <img src="{{ post.image.file.url }}" alt="{{ post.image.title }}" class="post-image">
-                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                        <span class="meta">{{ post.date }}</span>
-                        <hr>
-                    </header>
-                    <div class="body">{{ post.summary }}</div>
-                    <div class="clearfix">
-                        <a href="{{ post.url }}" class="btn btn-tales-one">Read more</a>
-                    </div>
-                </article>
-            </div>
-        {% if forloop.counter|divisibleby:2 or forloop.last %}
-        </div>
-        {% endif %}
+            {% include "home/_single_post.html" with post=post %}
         {% endfor %}
 
         {% if is_paginated %}

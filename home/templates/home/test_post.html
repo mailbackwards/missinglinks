@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    {% include "home/_single_post.html" with post=self %}
+{% endblock %}
+
+{% block aside %}
+{% endblock %}
