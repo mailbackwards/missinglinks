@@ -1,0 +1,50 @@
+{% load static from staticfiles %}
+
+<div class="widewrapper masthead">
+    <div class="container">
+        <a href="{% url 'home' %}" id="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Tales Blog">
+        </a>
+
+        <div id="mobile-nav-toggle" class="pull-right">
+            <a href="#" data-toggle="collapse" data-target=".tales-nav .navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        <nav class="pull-right tales-nav">
+            <div class="collapse navbar-collapse">
+                <ul class="nav nav-pills navbar-nav">
+
+                    <li><a href="{% url 'home' %}">Feed</a>
+                    <li><a href="{% url 'tags' %}">Tags</a>
+                    <li><a href="{% url 'links' %}">Links</a>
+                    <li><a href="{% url 'about' %}">About</a>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="widewrapper subheader">
+    <div class="container">
+        <div class="tales-breadcrumb">
+            {% comment %}
+            <a href="#">Tales</a>
+            <span class="separator">&#x2F;</span>
+            <a href="#">Starter</a>
+            <span class="separator">&#x2F;</span>
+            <a href="#">Starter Page</a>
+            {% endcomment %}
+        </div>
+
+        <div class="tales-searchbox">
+            <form action="#" method="get" accept-charset="utf-8">
+                <button class="searchbutton" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+                <input class="searchfield" id="searchbox" type="text" placeholder="Search">
+            </form>
+        </div>
+    </div>
+</div>
