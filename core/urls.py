@@ -9,20 +9,26 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
+from home.views import PostListTileView, PostListFeedView
+
 
 urlpatterns = [
-    url(r'^djadmin/', include(admin.site.urls)),
+    url(r'^$', PostListTileView.as_view(), name='home'),
+    url(r'^posts/$', PostListFeedView.as_view(), name='home_list'),
 
+    url(r'^tags/$', TemplateView.as_view(template_name='home/tags.html'), name='tags'),
+    url(r'^links/$', TemplateView.as_view(template_name='home/links.html'), name='links'),
+    url(r'^about/$', TemplateView.as_view(template_name='home/about.html'), name='about'),
+
+    url(r'^djadmin/', include(admin.site.urls)),
     url(r'^wagadmin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-
     url(r'^search/$', 'search.views.search', name='search'),
 
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
                                                content_type='text/plain')),
     url(r'^favicon\.ico$', RedirectView.as_view(url=static('img/favicon.ico'),
                                                 permanent=True)),
-
     url(r'', include(wagtail_urls)),
 ]
 
