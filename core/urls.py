@@ -9,7 +9,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from home.views import PostListTileView, PostListFeedView
+from home.views import PostListTileView, PostListFeedView, AboutView
 
 
 urlpatterns = [
@@ -18,7 +18,7 @@ urlpatterns = [
 
     url(r'^tags/$', TemplateView.as_view(template_name='home/tags.html'), name='tags'),
     url(r'^links/$', TemplateView.as_view(template_name='home/links.html'), name='links'),
-    url(r'^about/$', TemplateView.as_view(template_name='home/about.html'), name='about'),
+    url(r'^about/$', AboutView.as_view(), name='about'),
 
     url(r'^djadmin/', include(admin.site.urls)),
     url(r'^wagadmin/', include(wagtailadmin_urls)),

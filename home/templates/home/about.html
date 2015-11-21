@@ -4,22 +4,8 @@
 
 {% block content %}
     <div class="col-md-8 blog-main">
-        <h1>About</h1>
-        <p><em>The Missing Links</em> is an archaeology of digital journalism,
-        exploring the ways that news becomes history, as the web unfolds in
-        real time and unfurls into the past. It traces news archives (both
-        physical and digital), hyperlinks, and organization systems.</p>
-        <p>It started life as a masters thesis in MIT's Comparative Media
-        Studies program, advised by William Uricchio, Kurt
-        Fendt, and Ethan Zuckerman. Copyright Massachusetts Institute of
-        Technology, 2015.</p>
-        <p>This site primarily consists of writings and arguments from the
-        thesis, but also doubles as a meta-exploration of how this digital
-        container reframes and enriches the arguments within. It allows
-        the reader to dive in by chronology, tag, or link in addition to
-        reading page by page.</p>
-        <p><a href="https://dspace.mit.edu/handle/1721.1/97991">Download from
-        DSpace.</a></p>
+        <h1>{{ about_page.title }}</h1>
+        {{ about_page.body|safe }}
     </div>
 {% endblock %}
 

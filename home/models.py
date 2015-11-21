@@ -9,7 +9,11 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class HomePage(Page):
-    pass
+    body = RichTextField(null=False, default='')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname='full')
+    ]
 
 class TestPost(Page):
     body = RichTextField()
