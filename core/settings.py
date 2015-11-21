@@ -188,3 +188,9 @@ SESSION_COOKIE_SECURE = not env('DEBUG')
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "missinglinks"
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.db',
+    }
+}

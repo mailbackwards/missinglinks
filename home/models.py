@@ -6,6 +6,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailsearch import index
 
 
 class HomePage(Page):
@@ -14,6 +15,10 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full')
     ]
+
+    search_fields = Page.search_fields + (
+        index.SearchField('body', partial_match=True, boost=1),
+    )
 
 class TestPost(Page):
     body = RichTextField()
