@@ -1,7 +1,9 @@
+{% load wagtailimages_tags %}
 <div class="citation-block">
+    <p class="citation-related">CITATION:</p>
     <div class="row">
         <div class="col-xs-4 col-md-6 citation-image-container">
-            <img src="{{ self.image.file.url }}" alt="{{ self.image.title }}" class="citation-image">
+            {% image self.image width-300 class="citation-image" %}
         </div>
         <div class="col-xs-8 col-md-6 citation-content">
             <p class="citation-title">{{ self.title }}</p>

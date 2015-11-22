@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.functional import cached_property
 
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailcore import blocks
@@ -40,6 +41,15 @@ class PullquoteBlock(blocks.StructBlock):
         icon = 'openquote'
         template = 'blocks/_pullquote.html'
 
+class RelatedPostBlock(blocks.PageChooserBlock):
+    @cached_property
+    def target_model(self):
+        return PostPage
+
+    class Meta:
+        icon = 'doc-empty'
+        template = 'blocks/_relatedpost.html'
+
 
 class HomePage(Page):
     body = RichTextField(null=False, default='')
@@ -68,7 +78,7 @@ class PostPage(Page, TagSearchable):
         ('paragraph', blocks.RichTextBlock(icon='pilcrow')),
         ('image', ImageChooserBlock(icon='image')),
         ('pullquote', PullquoteBlock()),
-        ('page', blocks.PageChooserBlock(icon='doc-empty')),
+        ('related', RelatedPostBlock()),
         ('document', DocumentChooserBlock(icon='doc-full')),
         ('citation', CitationBlock()),
         ('embed', EmbedBlock(icon='media')),

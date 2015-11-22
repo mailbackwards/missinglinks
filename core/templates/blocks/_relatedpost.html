@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+<div class="citation-block">
+    <p class="citation-related">RELATED:</p>
+    <div class="row">
+        <div class="col-xs-4 col-md-6 citation-image-container">
+            {% image self.lead_art width-300 class="citation-image" %}
+        </div>
+        <div class="col-xs-8 col-md-6 citation-content">
+            <p class="citation-title"><a href="{{ self.url }}">{{ self.title }}</a></p>
+            <p class="citation-authordate">{{ self.date }}</p>
+            <p class="citation-summary">{{ self.summary|truncatewords:20 }}</p>
+            <p class="citation-links"><a href="{{ self.url }}" target="_blank">link</a></p>
+        </div>
+    </div>
+</div>

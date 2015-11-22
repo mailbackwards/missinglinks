@@ -62,3 +62,7 @@ blockquote:after {
 .citation-authordate {
     font-style: italic;
 }
+.citation-related {
+    font-weight: bold;
+    margin: 2px 2px 2px 20px;
+}
