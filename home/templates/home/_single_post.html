@@ -3,6 +3,11 @@
         <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
         <p><em>{{ post.date }}</em></p>
         <img src="{{ post.image.file.url }}" alt="{{ post.image.title }}" class="post-image">
-        <p>{{ post.body|safe }}</p>
+        {% if summary_only %}
+            <p>{{ post.summary }}</p>
+            <p><a href="{{ post.url }}"><button class="btn btn-tales-one">Read more</button></a></p>
+        {% else %}
+            {{ post.body|safe }}
+        {% endif %}
     </div>
 </div>
