@@ -3,8 +3,13 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    {% include "home/_single_post.html" with post=self %}
+    <div class="col-md-8">
+        {% include "home/_single_post.html" with post=self summary_only=False %}
+    </div>
 {% endblock %}
 
 {% block aside %}
+    <aside class="col-md-4 blog-aside">
+        {% include "home/_aside.html" %}
+    </aside>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load wagtailimages_tags %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
@@ -8,10 +9,13 @@
         {% if forloop.counter|divisibleby:2 or forloop.last %}
         <div class="row">
         {% endif %}
-            <div class="col-md-6 col-sm-6">
+            <div class="col-sm-6">
                 <article class="blog-teaser">
                     <header>
-                        <img src="{{ post.image.file.url }}" alt="{{ post.image.title }}" class="post-image">
+                        {% comment %}
+                        <img src="{{ post.lead_art.file.url }}" class="post-image">
+                        {% endcomment %}
+                        {% image post.lead_art min-200x200 class="post-image" %}
                         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                         <span class="meta">{{ post.date }}</span>
                         <hr>
@@ -28,31 +32,14 @@
         {% endfor %}
 
         {% if is_paginated %}
-            <div class="paging pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-long-arrow-left"></i> Newer</a>
-                    {% endif %}
-                    <span class="page-current">&bull;</span>
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}">Older <i class="fa fa-long-arrow-right"></i></a>
-                    {% endif %}
-                </span>
-            </div>
+            {% include '_home/pagination.html' %}
         {% endif %}
     </div>
 {% endblock %}
 
 {% block aside %}
     <aside class="col-md-4 blog-aside">
-        <div class="aside-widget">
-            <header>
-                <h3>A simple widget</h3>
-            </header>
-            <div class="body">
-                that says hi!
-            </div>
-        </div>
+        {% include "home/_aside.html" %}
     </aside>
 {% endblock %}
 

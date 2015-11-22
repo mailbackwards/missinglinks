@@ -1,8 +1,10 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 <div class="row">
     <div class="col-md-12 blog-main">
         <a href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
         <p><em>{{ post.date }}</em></p>
-        <img src="{{ post.image.file.url }}" alt="{{ post.image.title }}" class="post-image">
+        {% image post.lead_art width-400 class="post-image" %}
         {% if summary_only %}
             <p>{{ post.summary }}</p>
             <p><a href="{{ post.url }}"><button class="btn btn-tales-one">Read more</button></a></p>
