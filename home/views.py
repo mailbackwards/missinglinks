@@ -1,21 +1,21 @@
-from .models import TestPost, HomePage, Post
+from .models import HomePage, PostPage
 from django.views.generic import ListView, TemplateView, DetailView
 
 class PostListTileView(ListView):
-    model = TestPost
+    model = PostPage
     template_name = 'home/home_page.html'
     context_object_name = 'post_list'
     paginate_by = 8
 
 class PostListFeedView(ListView):
-    model = TestPost
+    model = PostPage
     template_name = 'home/home_page_list.html'
     context_object_name = 'post_list'
     paginate_by = 12
 
 class PostDetailView(DetailView):
-    model = Post
-    template_name = 'home/post.html'
+    model = PostPage
+    template_name = 'home/post_page.html'
     context_object_name = 'post'
 
 class AboutView(TemplateView):
