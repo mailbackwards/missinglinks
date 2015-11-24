@@ -67,6 +67,7 @@ class PostPageTag(TaggedItemBase):
 
 class PostPage(Page, TagSearchable):
     summary = models.TextField(null=False, blank=True)
+    featured = models.BooleanField(default=False)
     lead_art = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -92,6 +93,7 @@ class PostPage(Page, TagSearchable):
         StreamFieldPanel('body'),
     ]
     promote_panels = Page.promote_panels + [
+        FieldPanel('featured'),
         FieldPanel('tags'),
     ]
     search_fields = Page.search_fields + TagSearchable.search_fields + (

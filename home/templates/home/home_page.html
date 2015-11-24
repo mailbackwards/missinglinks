@@ -39,7 +39,7 @@
 
 {% block aside %}
     <aside class="col-md-4 blog-aside">
-        {% include "home/_aside.html" %}
+        {% include "home/_aside.html" with related_posts=related_posts %}
     </aside>
 {% endblock %}
 

@@ -1,5 +1,5 @@
-{% load wagtailcore_tags %}
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
@@ -12,6 +12,6 @@
 
 {% block aside %}
     <aside class="col-md-4 blog-aside">
-        {% include "home/_aside.html" %}
+        {% include "home/_aside.html" with featured_posts=featured_posts %}
     </aside>
 {% endblock %}
