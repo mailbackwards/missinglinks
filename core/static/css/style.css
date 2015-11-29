@@ -82,3 +82,25 @@ blockquote:after {
 .tagname-header {
     font-weight: bold;
 }
+
+/* Logo */
+.masthead {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.logo-img {
+    height:80px;
+    width:250px;
+    margin-top:-5px;
+}
+.widewrapper.subheader {
+    min-height:40px;
+}
+.tales-nav {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+.tales-searchbox {
+    margin-top:8px;
+    margin-bottom:8px;
+}
