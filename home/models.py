@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.functional import cached_property
 
@@ -14,11 +15,12 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailadmin.taggable import TagSearchable
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-from taggit.models import TaggedItemBase
+from taggit.models import TagBase, ItemBase
 
 
 class CitationBlock(blocks.StructBlock):
@@ -62,8 +64,56 @@ class HomePage(Page):
         index.SearchField('body', partial_match=True, boost=1),
     )
 
-class PostPageTag(TaggedItemBase):
+class TagQuerySet(models.QuerySet):
+    def prefetch_posts(self):
+        queryset = PostPageTag.objects.select_related('content_object')
+        return self.prefetch_related(models.Prefetch('post_page_tags', queryset=queryset))
+
+    def order_by_post_count(self):
+        return self.annotate(post_count=models.Count('post_page_tags')).order_by('-post_count')
+
+class TagManager(models.Manager):
+    def get_queryset(self):
+        return TagQuerySet(self.model, using=self._db)
+
+    def prefetch_posts(self):
+        return self.get_queryset().prefetch_posts()
+
+    def order_by_post_count(self):
+        return self.get_queryset().order_by_post_count()
+
+class ExtraTag(TagBase):
+    featured = models.BooleanField(default=False)
+    objects = TagManager()
+
+    class Meta:
+        verbose_name = _('Tag')
+        verbose_name_plural = _('Tags')
+
+    def get_absolute_url(self):
+        return reverse('tag', args=[self.slug])
+
+class PostPageTag(ItemBase):
+    tag = models.ForeignKey(
+        ExtraTag, related_name="post_page_tags", on_delete=models.CASCADE)
     content_object = ParentalKey('home.PostPage', related_name='tagged_items')
+
+    class Meta:
+        ordering = ['-content_object__first_published_at']
+
+    @classmethod
+    def tags_for(cls, model, instance=None, **extra_filters):
+        kwargs = extra_filters or {}
+        if instance is not None:
+            kwargs.update({
+                '%s__content_object' % cls.tag_relname(): instance
+            })
+            return cls.tag_model().objects.filter(**kwargs)
+        kwargs.update({
+            '%s__content_object__isnull' % cls.tag_relname(): False
+        })
+        return cls.tag_model().objects.filter(**kwargs).distinct()
+
 
 class PostPage(Page, TagSearchable):
     summary = models.TextField(null=False, blank=True)
@@ -103,3 +153,8 @@ class PostPage(Page, TagSearchable):
     @property
     def date(self):
         return self.first_published_at.date()
+
+    class Meta:
+        ordering = ['-first_published_at']
+
+register_snippet(ExtraTag)

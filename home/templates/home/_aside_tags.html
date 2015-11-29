@@ -1,0 +1,13 @@
+<div class="aside-widget">
+    <header>
+        <h3>Featured tags</h3>
+    </header>
+    <div class="body">
+        <ul class="related-posts">
+        {% for tag in featured_tags %}
+            <li class="related-post">
+                <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+            </li>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    <div class="col-md-8 blog-main">
+        {% for tag in tag_list %}
+            <h1 class="tagname-header">
+                <div class="clearfix">
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.name|capfirst }}</a>
+                </div>
+            </h1>
+            <div class="row">
+            {% for post_page_tag in tag.post_page_tags.all|slice:":2" %}
+                {% with post=post_page_tag.content_object %}
+                <div class="col-sm-6">
+                    <article class="blog-teaser">
+                        <header>
+                            {% image post.lead_art min-200x200 class="post-image" %}
+                            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                            <span class="meta">{{ post.date }}</span>
+                            <hr>
+                        </header>
+                        <div class="body">{{ post.summary }}</div>
+                        <div class="clearfix">
+                            <a href="{{ post.url }}" class="btn btn-tales-one">Read more</a>
+                        </div>
+                    </article>
+                </div>
+                {% endwith %}
+            {% endfor %}
+            </div>
+            <hr/>
+        {% endfor %}
+
+        {% if is_paginated %}
+            {% include "home/_pagination.html" %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block aside %}
+    <aside class="col-md-4 blog-aside">
+        {% include "home/_aside_tags.html" with featured_tags=featured_tags %}
+    </aside>
+{% endblock %}
+

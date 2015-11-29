@@ -12,9 +12,6 @@
             <div class="col-sm-6">
                 <article class="blog-teaser">
                     <header>
-                        {% comment %}
-                        <img src="{{ post.lead_art.file.url }}" class="post-image">
-                        {% endcomment %}
                         {% image post.lead_art min-200x200 class="post-image" %}
                         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                         <span class="meta">{{ post.date }}</span>

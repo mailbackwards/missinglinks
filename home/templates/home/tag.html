@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    <div class="col-md-8 blog-main">
+        <h1 class="tagname-header">
+            <div class="clearfix">
+                <a href="{{ tag.get_absolute_url }}">{{ tag.name|capfirst }}</a>
+            </div>
+        </h1>
+        <hr />
+        <div class="row">
+        {% for post_page_tag in tag.post_page_tags.all %}
+            {% include "home/_single_post.html" with post=post_page_tag.content_object summary_only=True%}
+        {% endfor %}
+        </div>
+        <hr/>
+    </div>
+{% endblock %}
+
+{% block aside %}
+    <aside class="col-md-4 blog-aside">
+        {% include "home/_aside_tags.html" with featured_tags=featured_tags %}
+    </aside>
+{% endblock %}
+

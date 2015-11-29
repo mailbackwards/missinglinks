@@ -9,14 +9,15 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
-from home.views import PostListTileView, PostListFeedView, AboutView
+from home.views import PostListTileView, PostListFeedView, AboutView, TagListView, TagDetailView
 
 
 urlpatterns = [
     url(r'^$', PostListTileView.as_view(), name='home'),
     url(r'^posts/$', PostListFeedView.as_view(), name='home_list'),
 
-    url(r'^tags/$', TemplateView.as_view(template_name='home/tags.html'), name='tags'),
+    url(r'^tags/$', TagListView.as_view(), name='tags'),
+    url(r'^tags/(?P<slug>[-\w]+)/$', TagDetailView.as_view(), name='tag'),
     url(r'^links/$', TemplateView.as_view(template_name='home/links.html'), name='links'),
     url(r'^about/$', AboutView.as_view(), name='about'),
 
