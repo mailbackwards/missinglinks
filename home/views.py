@@ -32,6 +32,14 @@ class AboutView(TemplateView):
         kwargs['related_posts'] = PostPage.objects.filter(featured=True)
         return kwargs
 
+class LinkView(TemplateView):
+    template_name = 'home/links.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs = super(LinkView, self).get_context_data(**kwargs)
+        kwargs['related_posts'] = PostPage.objects.filter(featured=True)
+        return kwargs
+
 class TagListView(ListView):
     model = ExtraTag
     context_object_name = 'tag_list'
