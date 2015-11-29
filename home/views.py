@@ -1,6 +1,8 @@
 from .models import HomePage, PostPage, ExtraTag
 from django.views.generic import ListView, TemplateView, DetailView
 
+### POSTS ###
+
 class PostListView(ListView):
     model = PostPage
     context_object_name = 'post_list'
@@ -23,6 +25,9 @@ class PostDetailView(DetailView):
     template_name = 'home/post_page.html'
     context_object_name = 'post'
 
+
+### TEMPLATES ###
+
 class AboutView(TemplateView):
     template_name = 'home/about.html'
 
@@ -39,6 +44,9 @@ class LinkView(TemplateView):
         kwargs = super(LinkView, self).get_context_data(**kwargs)
         kwargs['related_posts'] = PostPage.objects.filter(featured=True)
         return kwargs
+
+
+### TAGS ###
 
 class TagListView(ListView):
     model = ExtraTag

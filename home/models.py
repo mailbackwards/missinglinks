@@ -15,6 +15,7 @@ from wagtail.wagtaildocs.blocks import DocumentChooserBlock
 from wagtail.wagtailsnippets.blocks import SnippetChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 from wagtail.wagtailsearch import index
+from wagtail.wagtailsearch.backends import get_search_backend
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailadmin.taggable import TagSearchable
 
@@ -60,10 +61,6 @@ class HomePage(Page):
         FieldPanel('body', classname='full')
     ]
 
-    search_fields = Page.search_fields + (
-        index.SearchField('body', partial_match=True, boost=1),
-    )
-
 class TagQuerySet(models.QuerySet):
     def prefetch_posts(self):
         queryset = PostPageTag.objects.select_related('content_object')
@@ -82,9 +79,16 @@ class TagManager(models.Manager):
     def order_by_post_count(self):
         return self.get_queryset().order_by_post_count()
 
-class ExtraTag(TagBase):
+    def search(self, query):
+        return get_search_backend().search(query, self.get_queryset())
+
+class ExtraTag(TagBase, index.Indexed):
     featured = models.BooleanField(default=False)
     objects = TagManager()
+
+    search_fields = [
+        index.SearchField('name', partial_match=True)
+    ]
 
     class Meta:
         verbose_name = _('Tag')
@@ -147,7 +151,7 @@ class PostPage(Page, TagSearchable):
         FieldPanel('tags'),
     ]
     search_fields = Page.search_fields + TagSearchable.search_fields + (
-        index.SearchField('body'),
+        index.SearchField('body', partial_match=True),
     )
 
     @property

@@ -9,11 +9,12 @@
     <h1>Search</h1>
 
     <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
+        <input type="text" name="q"{% if search_query %} value="{{ search_query }}"{% endif %}>
         <input type="submit" value="Search">
     </form>
 
     {% if search_results %}
+        <h3>Posts:</h3>
         <ul>
             {% for result in search_results %}
                 <li>
@@ -32,7 +33,21 @@
         {% if search_results.has_next %}
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
         {% endif %}
-    {% elif search_query %}
+    {% endif %}
+    {% if tag_results %}
+        <h3>Tags:</h3>
+        <ul>
+            {% for result in tag_results %}
+                <li>
+                    <h4><a href="{{ result.get_absolute_url }}">{{ result.name }}</a></h4>
+                    {% if result.search_description %}
+                        {{ result.search_description|safe }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% if not search_query and not tag_results %}
         No results found
     {% endif %}
 {% endblock %}
