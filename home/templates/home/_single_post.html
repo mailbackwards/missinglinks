@@ -6,7 +6,7 @@
         {% image post.lead_art width-400 class="post-image" %}
         {% if summary_only %}
             <p>{{ post.summary }}</p>
-            <p><a href="{{ post.url }}"><button class="btn btn-tales-one">Read more</button></a></p>
+            <p><a href="{{ post.url }}"><button class="btn btn-tales-one">Read</button></a></p>
         {% else %}
             {{ post.body|safe }}
         {% endif %}

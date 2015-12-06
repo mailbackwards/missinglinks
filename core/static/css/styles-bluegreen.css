@@ -112,7 +112,7 @@ hr {
 /* Desktop version of the navigation */
 .tales-nav .nav-pills {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   font-size: 16px;
 }
 .tales-nav .nav-pills > li {

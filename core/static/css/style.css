@@ -1,15 +1,18 @@
-.post-image {
+.related-image {
     max-height: 100%;
     max-width: 100%;
 }
-.main a {
+.rich-text a {
     text-decoration: underline;
+}
+.aside-widget .body {
+    margin-bottom: 20px;
 }
 
 /* Pullquote Styling */
 blockquote {
     background: #f9f9f9;
-    border-left: 10px solid #ccc;
+    border-left: 10px solid #566572;
     margin: 1.5em 30px;
     padding: 0.5em 10px;
     quotes: "\201C""\201D""\2018""\2019";
@@ -20,7 +23,7 @@ blockquote div {
     position: relative;
 }
 blockquote:before {
-    color: #ccc;
+    color: #566572;
     content: open-quote;
     font-size: 4em;
     line-height: 0.1em;
@@ -40,10 +43,11 @@ blockquote:after {
 }
 
 /* Citation styling */
-.citation-block {
+.block-citation, .block-related {
     margin: 1.5em 30px;
-    border: 3px solid #ccc;
-    background-color: #ddd;
+    background-image: linear-gradient(to bottom, #f6f5f5 0%, #ebeaea 100%);
+    border-left: 10px solid #566572;
+    opacity: 0.8;
 }
 .citation-image-container {
     width: 150px;
@@ -63,17 +67,18 @@ blockquote:after {
     font-style: italic;
 }
 .citation-related {
-    font-weight: bold;
-    margin: 2px 2px 2px 20px;
+    font-style: italic;
+}
+.citation-links {
+    text-decoration: underline;
 }
 
 /* Related post sidebar styling */
-.related-posts {
+.related-items {
     margin: 0;
     padding: 0;
 }
-.related-post {
-    background-color: #ddd;
+.related-item {
     list-style-type: none;
     margin-top: 5px;
 }
@@ -89,9 +94,18 @@ blockquote:after {
     padding-bottom: 20px;
 }
 .logo-img {
-    height:80px;
-    width:250px;
-    margin-top:-5px;
+    max-width:100%;
+    max-height:80px;
+    margin-top:-20px;
+    margin-bottom:-50px;
+}
+.logo-txt {
+    position: absolute;
+    font-weight: bold;
+    font-size: 24px;
+    left: 90px;
+    top: 35px;
+    color: #ececec;
 }
 .widewrapper.subheader {
     min-height:40px;

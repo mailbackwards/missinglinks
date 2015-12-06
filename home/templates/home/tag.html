@@ -5,11 +5,11 @@
 
 {% block content %}
     <div class="col-md-8 blog-main">
-        <h1 class="tagname-header">
+        <h2 class="tagname-header">
             <div class="clearfix">
-                <a href="{{ tag.get_absolute_url }}">{{ tag.name|capfirst }}</a>
+                <a href="{{ tag.get_absolute_url }}"><i class="fa fa-tag"></i> {{ tag.name|capfirst }}</a>
             </div>
-        </h1>
+        </h2>
         <hr />
         <div class="row">
         {% for post_page_tag in tag.post_page_tags.all %}

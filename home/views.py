@@ -9,7 +9,7 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         kwargs = super(PostListView, self).get_context_data(**kwargs)
-        kwargs['related_posts'] = PostPage.objects.filter(featured=True)
+        kwargs['featured_posts'] = PostPage.objects.filter(featured=True)
         return kwargs
 
 class PostListTileView(PostListView):
@@ -20,11 +20,6 @@ class PostListFeedView(PostListView):
     template_name = 'home/home_page_list.html'
     paginate_by = 12
 
-class PostDetailView(DetailView):
-    model = PostPage
-    template_name = 'home/post_page.html'
-    context_object_name = 'post'
-
 
 ### TEMPLATES ###
 
@@ -34,7 +29,7 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         kwargs = super(AboutView, self).get_context_data(**kwargs)
         kwargs['about_page'] = HomePage.objects.first()
-        kwargs['related_posts'] = PostPage.objects.filter(featured=True)
+        kwargs['featured_posts'] = PostPage.objects.filter(featured=True)
         return kwargs
 
 class LinkView(TemplateView):
@@ -42,7 +37,7 @@ class LinkView(TemplateView):
 
     def get_context_data(self, **kwargs):
         kwargs = super(LinkView, self).get_context_data(**kwargs)
-        kwargs['related_posts'] = PostPage.objects.filter(featured=True)
+        kwargs['featured_posts'] = PostPage.objects.filter(featured=True)
         return kwargs
 
 

@@ -19,7 +19,7 @@
                     </header>
                     <div class="body">{{ post.summary }}</div>
                     <div class="clearfix">
-                        <a href="{{ post.url }}" class="btn btn-tales-one">Read more</a>
+                        <a href="{{ post.url }}" class="btn btn-tales-one">Read</a>
                     </div>
                 </article>
             </div>
@@ -36,7 +36,7 @@
 
 {% block aside %}
     <aside class="col-md-4 blog-aside">
-        {% include "home/_aside.html" with related_posts=related_posts %}
+        {% include "home/_aside.html" with featured_posts=featured_posts %}
     </aside>
 {% endblock %}
 

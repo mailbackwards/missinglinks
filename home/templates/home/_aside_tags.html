@@ -6,7 +6,7 @@
         <ul class="related-posts">
         {% for tag in featured_tags %}
             <li class="related-post">
-                <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                <a href="{{ tag.get_absolute_url }}"><i class="fa fa-tag"></i> {{ tag.name }}</a>
             </li>
         {% endfor %}
     </div>

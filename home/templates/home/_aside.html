@@ -1,14 +1,37 @@
 {% load wagtailimages_tags %}
 <div class="aside-widget">
     <header>
-        <h3>Featured posts</h3>
+        <h3>{% if related_posts %}Related{% else %}Featured{% endif %} posts</h3>
     </header>
     <div class="body">
-        <ul class="related-posts">
-        {% for post in related_posts %}
-            <li class="related-post">
-                {% image post.lead_art width-50 class="post-image" %} <a href="{{ post.url }}">{{ post.title }}</a>
-            </li>
-        {% endfor %}
+        <ul class="related-items">
+        {% if related_posts %}
+            {% for post in related_posts %}
+                <li class="related-item">
+                    {% image post.lead_art width-50 class="related-image" %} <a href="{{ post.url }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            {% for post in featured_posts %}
+                <li class="related-item">
+                    {% image post.lead_art width-50 class="related-image" %} <a href="{{ post.url }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
     </div>
+    {% if citations %}
+        <header class="citation-header">
+            <h3>Citations</h3>
+        </header>
+        <div class="body">
+            <ul class="related-items">
+            {% for citation in citations %}
+                <li class="related-item">
+                    {% image citation.image width-50 class="related-image" %} <a href="{{ citation.href }}">{{ citation.title }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 </div>

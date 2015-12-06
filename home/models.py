@@ -102,8 +102,8 @@ class PostPageTag(ItemBase):
         ExtraTag, related_name="post_page_tags", on_delete=models.CASCADE)
     content_object = ParentalKey('home.PostPage', related_name='tagged_items')
 
-    class Meta:
-        ordering = ['-content_object__first_published_at']
+    # class Meta:
+    #     ordering = ['-content_object__first_published_at']
 
     @classmethod
     def tags_for(cls, model, instance=None, **extra_filters):
@@ -140,6 +140,18 @@ class PostPage(Page, TagSearchable):
     ])
 
     tags = ClusterTaggableManager(through=PostPageTag, blank=True)
+
+    def get_blocks_of_type(self, block_type):
+        return [block.value for block in self.body
+                if block.block_type == block_type]
+
+    @property
+    def citations(self):
+        return self.get_blocks_of_type('citation')
+
+    @property
+    def related_posts(self):
+        return self.get_blocks_of_type('related')
 
     content_panels = Page.content_panels + [
         FieldPanel('summary'),
