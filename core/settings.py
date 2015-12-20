@@ -162,7 +162,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = root('media')
 MEDIA_URL = '/media/'
 
-if DEBUG:
+if not DEBUG:
     # django-storages-redux settings
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
