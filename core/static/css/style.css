@@ -118,3 +118,8 @@ blockquote:after {
     margin-top:8px;
     margin-bottom:8px;
 }
+
+/* Image */
+.post-image {
+    margin-bottom:20px;
+}
