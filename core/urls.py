@@ -11,7 +11,7 @@ from wagtail.wagtailcore import urls as wagtail_urls
 
 from home.views import (
     PostListTileView, PostListFeedView, AboutView, TagListView, TagDetailView,
-    LinkView,
+    LinkView, MainFeed
     )
 
 
@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^wagadmin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^search/$', 'search.views.search', name='search'),
+
+    url(r'^feed/$', MainFeed(), name='feed'),
 
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
                                                content_type='text/plain')),

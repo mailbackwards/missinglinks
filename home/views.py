@@ -1,5 +1,7 @@
 from .models import HomePage, PostPage, ExtraTag
 from django.views.generic import ListView, TemplateView, DetailView
+from django.contrib.syndication.views import Feed
+import mimetypes
 
 ### POSTS ###
 
@@ -67,3 +69,57 @@ class TagDetailView(DetailView):
         kwargs = super(TagDetailView, self).get_context_data(**kwargs)
         kwargs['featured_tags'] = self.model._default_manager.filter(featured=True)
         return kwargs
+
+
+### FEEDS ###
+
+class MainFeed(Feed):
+    title = 'The Missing Links feed'
+    link = '/feed/'
+    description = 'Posts on The Missing Links project (themissinglinks.co)'
+
+    author_name = 'Liam Andrew'
+    author_email = 'liam.p.andrew@gmail.com'
+    author_link = 'http://www.themissinglinks.co'
+    feed_copyright = 'Copyright (c) 2016, Liam Andrew'
+    item_author_name = 'Liam Andrew'
+    item_author_email = 'liam.p.andrew@gmail.com'
+    item_author_link = 'http://www.themissinglinks.co'
+    item_copyright = 'Copyright (c) 2016, Liam Andrew'
+
+    categories = ('media', 'publishing', 'technology', 'news', 'archives',
+                  'hyperlinks')
+
+    def items(self):
+        return PostPage.objects.order_by('-first_published_at')[:20]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_link(self, item):
+        return item.url
+
+    def item_description(self, item):
+        return item.body
+
+    def item_enclosure_url(self, item):
+        url = item.lead_art.file.url
+        if url.startswith('//'):
+            url = 'https:' + url
+        return url
+
+    def item_enclosure_length(self, item):
+        return item.lead_art.get_file_size()
+
+    def item_enclosure_mime_type(self, item):
+        filename = item.lead_art.filename
+        return mimetypes.guess_type(filename)[0]
+
+    def item_pubdate(self, item):
+        return item.first_published_at
+
+    def item_updateddate(self, item):
+        return item.latest_revision_created_at
+
+    def item_categories(self, item):
+        return item.tags.values_list('name', flat=True)
