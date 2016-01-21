@@ -96,9 +96,10 @@ if DEBUG:
         }
     }
 else:
-    os.environ['MEMCACHE_SERVERS'] = os.environ['MEMCACHIER_SERVERS'].replace(',', ';')
-    os.environ['MEMCACHE_USERNAME'] = os.environ['MEMCACHIER_USERNAME']
-    os.environ['MEMCACHE_PASSWORD'] = os.environ['MEMCACHIER_PASSWORD']
+    import os
+    os.environ['MEMCACHE_SERVERS'] = env('MEMCACHIER_SERVERS').replace(',', ';')
+    os.environ['MEMCACHE_USERNAME'] = env('MEMCACHIER_USERNAME')
+    os.environ['MEMCACHE_PASSWORD'] = env('MEMCACHIER_PASSWORD')
     CACHES = {
         'default': {
             'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
