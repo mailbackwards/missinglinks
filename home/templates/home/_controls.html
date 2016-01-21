@@ -1,0 +1,17 @@
+{% load wagtailimages_tags %}
+<div class="row controls">
+    <div class="col-xs-6 controls-prev">
+        {% if post.previous %}
+            <a href="{{ post.previous.url }}" alt="Previous post">
+                <i class="fa fa-long-arrow-left"></i>&nbsp;Previous&nbsp;&bull;
+            </a>
+        {% endif %}
+    </div>
+    <div class="col-xs-6 controls-next">
+        {% if post.next %}
+            <a href="{{ post.next.url }}" alt="Next post">
+                &bull;&nbsp;Next&nbsp;<i class="fa fa-long-arrow-right"></i>
+            </a>
+        {% endif %}
+    </div>
+</div>

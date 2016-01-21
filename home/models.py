@@ -145,6 +145,16 @@ class PostPage(Page, TagSearchable):
         return [block.value for block in self.body
                 if block.block_type == block_type]
 
+    def previous(self):
+        return PostPage.objects.filter(
+            first_published_at__lt=self.first_published_at).order_by(
+            '-first_published_at').first()
+
+    def next(self):
+        return PostPage.objects.filter(
+            first_published_at__gt=self.first_published_at).order_by(
+            'first_published_at').first()
+
     @property
     def citations(self):
         return self.get_blocks_of_type('citation')

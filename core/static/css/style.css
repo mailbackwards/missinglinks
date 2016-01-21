@@ -123,3 +123,13 @@ blockquote:after {
 .post-image {
     margin-bottom:20px;
 }
+
+.controls {
+    font-size:18px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.controls-next {
+    text-align:right;
+}

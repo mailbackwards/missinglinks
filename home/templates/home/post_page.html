@@ -4,7 +4,9 @@
 
 {% block content %}
     <div class="col-md-8">
+        {% include "home/_controls.html" with post=self %}
         {% include "home/_single_post.html" with post=self summary_only=False %}
+        {% include "home/_controls.html" with post=self %}
     </div>
 {% endblock %}
 
