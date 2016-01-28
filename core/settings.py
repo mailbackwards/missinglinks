@@ -112,6 +112,8 @@ else:
 CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 300
 
+COMPRESS_OFFLINE = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
