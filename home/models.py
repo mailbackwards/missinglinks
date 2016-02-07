@@ -36,6 +36,15 @@ class CitationBlock(blocks.StructBlock):
         icon = 'snippet'
         template = 'blocks/_citation.html'
 
+class DocumentBlock(blocks.StructBlock):
+    title = blocks.CharBlock(required=False)
+    image = ImageChooserBlock(required=False)
+    document = DocumentChooserBlock(required=True)
+
+    class Meta:
+        icon = 'doc-full'
+        template = 'blocks/_document.html'
+
 class PullquoteBlock(blocks.StructBlock):
     content = blocks.RichTextBlock(required=True)
     attribution = blocks.CharBlock(required=False, null=False, blank=True)
@@ -134,7 +143,7 @@ class PostPage(Page, TagSearchable):
         ('image', ImageChooserBlock(icon='image')),
         ('pullquote', PullquoteBlock()),
         ('related', RelatedPostBlock()),
-        ('document', DocumentChooserBlock(icon='doc-full')),
+        ('document', DocumentBlock()),
         ('citation', CitationBlock()),
         ('embed', EmbedBlock(icon='media')),
     ])
@@ -162,6 +171,11 @@ class PostPage(Page, TagSearchable):
     @property
     def related_posts(self):
         return self.get_blocks_of_type('related')
+
+    @property
+    def documents(self):
+        return self.get_blocks_of_type('document')
+
 
     content_panels = Page.content_panels + [
         FieldPanel('summary'),

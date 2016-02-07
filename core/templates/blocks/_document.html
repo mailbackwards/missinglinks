@@ -1,0 +1,18 @@
+{% load wagtailimages_tags %}
+<div class="row">
+    <div class="col-xs-4 col-md-6 citation-image-container">
+        {% image self.image width-300 class="citation-image" %}
+    </div>
+    <div class="col-xs-8 col-md-6 citation-content">
+        <a href="{{ self.document.file.url }}" target="_blank">
+            <p class="citation-title">{{ self.title }}</p>
+            <p class="citation-authordate">
+                {% if self.author %}{{ self.author }},{% endif %}
+                {% if self.date %} &nbsp;{{ self.date }}{% endif %}
+            </p>
+            <p class="citation-links">
+                <a href="{{ self.document.file.url }}" target="_blank">doc</a>
+            </p>
+        </a>
+    </div>
+</div>

@@ -43,7 +43,7 @@ blockquote:after {
 }
 
 /* Citation styling */
-.block-citation, .block-related {
+.block-citation, .block-related, .block-document {
     margin: 1.5em 30px;
     background-image: linear-gradient(to bottom, #f6f5f5 0%, #ebeaea 100%);
     border-left: 10px solid #566572;
