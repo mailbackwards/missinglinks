@@ -7,6 +7,7 @@ import mimetypes
 
 class PostListView(ListView):
     model = PostPage
+    queryset = PostPage.objects.live().order_by('-first_published_at')
     context_object_name = 'post_list'
 
     def get_context_data(self, **kwargs):

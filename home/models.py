@@ -182,4 +182,7 @@ class PostPage(Page, TagSearchable):
             return None
         return self.first_published_at.date()
 
+    class Meta:
+        ordering = ['-first_published_at']
+
 register_snippet(ExtraTag)
