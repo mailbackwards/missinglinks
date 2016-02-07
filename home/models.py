@@ -178,9 +178,8 @@ class PostPage(Page, TagSearchable):
 
     @property
     def date(self):
+        if not self.first_published_at:
+            return None
         return self.first_published_at.date()
-
-    class Meta:
-        ordering = ['-first_published_at']
 
 register_snippet(ExtraTag)
